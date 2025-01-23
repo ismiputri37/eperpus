@@ -10,8 +10,7 @@
                             $kategori = $_POST['kategori'];
                             $query = mysqli_query($koneksi, "UPDATE kategori SET kategori='$kategori' WHERE id_kategori=$id");
                             if($query) {
-                                echo '<script> alert("Ubah data berhasil"); 
-                                </script>';                                
+                                echo '<script> alert("Ubah data berhasil"); </script>';                                
                             } else {
                                 echo '<script> alert("Ubah data gagal");</script>';
                             }

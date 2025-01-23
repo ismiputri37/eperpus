@@ -8,21 +8,23 @@
                 <th>Nama Kategori</th>
                 <th>Aksi</th>
             </tr>
+            
             <?php 
-            $i=1;
+                $i=1;
                 $query = mysqli_query($koneksi, "SELECT * FROM kategori");
-                while ($data = mysqli_fetch_array($query)) {
+                while ($data = mysqli_fetch_array($query)) :
             ?>
             <tr>
                 <td><?= $i++; ?></td>
                 <td><?= $data['kategori']; ?></td>
                 <td>
+                    <!-- update kategori by id_kategori -->
                     <a href="?page=kategori_ubah&&id=<?= $data['id_kategori']?>" class="btn btn-info">Ubah</a>
                     <a onclick="return confirm('Apakah anda yakin menghapus data ini')" href="?page=kategori_hapus&&id=<?= $data['id_kategori']?>" class="btn btn-danger">Hapus</a>
                 </td>
             </tr>
-
-            <?php } ?>            
+            
+            <?php endwhile; ?>            
             
         </table>
     </div>

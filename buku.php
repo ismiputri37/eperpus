@@ -14,9 +14,9 @@
                 <th>Aksi</th>
             </tr>
             <?php 
-            $i=1;
+                $i=1;
                 $query = mysqli_query($koneksi, "SELECT * FROM buku LEFT JOIN kategori ON buku.id_kategori = kategori.id_kategori");
-                while ($data = mysqli_fetch_array($query)) {
+                while ($data = mysqli_fetch_array($query)) :
             ?>
             <tr>
                 <td><?= $i++; ?></td>
@@ -32,7 +32,7 @@
                 </td>
             </tr>
 
-            <?php } ?>            
+            <?php endwhile; ?>            
             
         </table>
     </div>

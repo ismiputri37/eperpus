@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <!-- menyimpan data ke database -->
                 <form action="" method="POST">
-                    <?php
+                    <?php 
                         if(isset($_POST['submit'])) {
                             // $buku = $_POST['buku'];
                             $id_kategori = $_POST['id_kategori'];
@@ -15,7 +15,7 @@
                             $tahun_terbit = $_POST['tahun_terbit'];
                             $deskripsi = $_POST['deskripsi'];
 
-                            $query = mysqli_query($koneksi, "INSERT INTO buku(id_kategori, judul, penulis, penerbit, tahun_terbit, deskripsi)
+                            $query = mysqli_query($koneksi, "INSERT INTO buku(id_kategori, judul, penulis, penerbit, tahun_terbit, deskripsi) 
                                 VALUES('$id_kategori', '$judul', '$penulis', '$penerbit', '$tahun_terbit', '$deskripsi')");
                             if($query) {
                                 echo '<script>alert("Tambah data berhasil"); </script>';
@@ -31,14 +31,14 @@
                             <div class="col-md-8">
                                 <!-- <input type="text" class="form-control" name="kategori"> -->
                                  <select name="id_kategori" class="form-control">
-                                    <?php
+                                    <?php 
                                         $kat = mysqli_query($koneksi, "SELECT * FROM kategori");
                                         while ($kategori = mysqli_fetch_array($kat)) :
                                     ?>
                                     <option value="<?= $kategori['id_kategori']; ?>">
                                         <?= $kategori['kategori']; ?>
                                     </option>
-                                    <?php endwhile; ?>
+                                    <?php endwhile; ?>    
                                  </select>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
 
 
                         <!-- button submit -->
-                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">                                            
                             <div class="col-md-4">
                                 <div class="col-md-8">
                                     <button type="submit" class="btn btn-primary" name="submit" value="submit">Simpan</button>

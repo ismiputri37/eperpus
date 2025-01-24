@@ -18,12 +18,13 @@
                             $query = mysqli_query($koneksi, "UPDATE buku SET id_kategori='$id_kategori', judul='$judul', penulis='$penulis', penerbit='$penerbit', 
                                 tahun_terbit='$tahun_terbit', deskripsi='$deskripsi' WHERE id_buku=$id");
                             if($query) {
-                                echo '<script>alert("Tambah data berhasil"); </script>';
+                                echo '<script>alert("Update data berhasil"); </script>';
                             } else {
-                                echo '<script> alert("Tambah data gagal");</script>';
+                                echo '<script> alert("Update data gagal");</script>';
                             }
                         }
                         $query = mysqli_query($koneksi, "SELECT * FROM buku WHERE id_buku=$id");
+                        // mengambil data dari tabel buku
                         $data = mysqli_fetch_array($query);
                     ?>
                     <!-- menampilkan nama kategori -->
@@ -34,10 +35,13 @@
                                 <!-- <input type="text" class="form-control" name="kategori"> -->
                                  <select name="id_kategori" class="form-control">
                                     <?php
+                                        // mengambil data dari tabel kategori
                                         $kat = mysqli_query($koneksi, "SELECT * FROM kategori");
                                         while ($kategori = mysqli_fetch_array($kat)) :
                                     ?>
-                                    <option <?php if($kategori['id_kategori'] == $data['id_kategori']) echo 'selected'; ?> value="<?= $kategori['id_kategori']; ?>">
+                                    
+                                    <option <?php if($kategori['id_kategori'] == $data['id_kategori']) echo 'selected'; ?>
+                                    value="<?= $kategori['id_kategori']; ?>">
                                         <?= $kategori['kategori']; ?>                                        
                                     </option>
                                     <?php endwhile; ?>                                    
@@ -64,7 +68,7 @@
                         <div class="row mb-3">
                             <div class="col-md-2">Deskripsi</div>
                             <div class="col-md-8">
-                                <textarea name="deskripsi" rows="5" class="form-control"><?= $data['judul']; ?></textarea>
+                                <textarea name="deskripsi" rows="5" class="form-control"><?= $data['deskripsi']; ?></textarea>
                             </div>
                         </div>
 
@@ -75,7 +79,7 @@
                                 <div class="col-md-8">
                                     <button type="submit" class="btn btn-primary" name="submit" value="submit">Simpan</button>
                                     <button type="reset" class="btn btn-secondary">Reset</button>
-                                    <a href="?page=kategori" class="btn btn-danger">Kembali</a>
+                                    <a href="?page=buku" class="btn btn-danger">Kembali</a>
                                 </div>
                             </div>
                         </div>

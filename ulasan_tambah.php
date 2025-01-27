@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <!-- menyimpan data ke database -->
                 <form action="" method="POST">
-                    <?php 
+                    <?php
                         if(isset($_POST['submit'])) {
                             $id_buku = $_POST["id_buku"];
                             $id_user = $_SESSION['user']['id_user'];

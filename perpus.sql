@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2025 at 12:48 PM
+-- Generation Time: Jan 27, 2025 at 04:36 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 5.6.38
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `buku` (
   `id_buku` int(11) NOT NULL,
-  `Id_kategori` int(11) DEFAULT NULL,
+  `id_kategori` int(11) DEFAULT NULL,
   `judul` varchar(255) DEFAULT NULL,
   `penulis` varchar(255) DEFAULT NULL,
   `penerbit` varchar(255) DEFAULT NULL,
@@ -42,9 +42,10 @@ CREATE TABLE `buku` (
 -- Dumping data for table `buku`
 --
 
-INSERT INTO `buku` (`id_buku`, `Id_kategori`, `judul`, `penulis`, `penerbit`, `tahun_terbit`, `deskripsi`) VALUES
+INSERT INTO `buku` (`id_buku`, `id_kategori`, `judul`, `penulis`, `penerbit`, `tahun_terbit`, `deskripsi`) VALUES
 (1, 3, 'Bumi Manusia', 'Pramoedya', 'Hasta Mitra', '2020', 'lorem ipsum'),
-(2, 3, 'Bumi Manusia', 'Pramoedya', 'Hasta Mitra', '2020', 'lorem ipsum');
+(2, 3, 'Bumi Manusia', 'Pramoedya', 'Hasta Mitra', '2020', 'lorem ipsum'),
+(3, 3, 'Laut Bercerita', 'Maryam Karpov', 'Gramedia', '2022', 'Laut Bercerita');
 
 -- --------------------------------------------------------
 
@@ -76,9 +77,18 @@ CREATE TABLE `peminjaman` (
   `id_user` int(11) DEFAULT NULL,
   `id_buku` int(11) DEFAULT NULL,
   `tanggal_peminjaman` varchar(255) DEFAULT NULL,
-  `tanggal_pengembalian` int(255) DEFAULT NULL,
+  `tanggal_pengembalian` varchar(255) DEFAULT NULL,
   `status_peminjaman` enum('dipinjam','dikembalikan') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `peminjaman`
+--
+
+INSERT INTO `peminjaman` (`id_peminjaman`, `id_user`, `id_buku`, `tanggal_peminjaman`, `tanggal_pengembalian`, `status_peminjaman`) VALUES
+(8, 3, 2, '21-11-2024', '0', 'dikembalikan'),
+(9, 3, 2, '21-11-2024', '23', 'dikembalikan'),
+(11, 8, 1, '2025-01-27', '2025-01-29', 'dipinjam');
 
 -- --------------------------------------------------------
 
@@ -93,6 +103,16 @@ CREATE TABLE `ulasan` (
   `ulasan` text NOT NULL,
   `rating` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ulasan`
+--
+
+INSERT INTO `ulasan` (`id_ulasan`, `id_user`, `id_buku`, `ulasan`, `rating`) VALUES
+(3, 9, 1, 'vhvjh hvjhg', 7),
+(4, 9, 1, 'vhvjh hvjhg', 7),
+(5, 3, 3, 'kamu jangan move on! buku cerita yang snagat bagus dan membuat gagal move on', 7),
+(6, 3, 1, 'sknsen ratign 4', 4);
 
 -- --------------------------------------------------------
 
@@ -134,7 +154,7 @@ INSERT INTO `user` (`id_user`, `nama`, `username`, `password`, `email`, `alamat`
 --
 ALTER TABLE `buku`
   ADD PRIMARY KEY (`id_buku`),
-  ADD KEY `Id_kategori` (`Id_kategori`);
+  ADD KEY `Id_kategori` (`id_kategori`);
 
 --
 -- Indexes for table `kategori`
@@ -172,25 +192,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `ulasan`
 --
 ALTER TABLE `ulasan`
-  MODIFY `id_ulasan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ulasan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -213,8 +233,7 @@ ALTER TABLE `buku`
 --
 ALTER TABLE `peminjaman`
   ADD CONSTRAINT `peminjaman_ibfk_1` FOREIGN KEY (`id_buku`) REFERENCES `buku` (`id_buku`),
-  ADD CONSTRAINT `peminjaman_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `ulasan` (`id_user`),
-  ADD CONSTRAINT `peminjaman_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `peminjaman_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `ulasan`

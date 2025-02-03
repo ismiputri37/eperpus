@@ -6,13 +6,21 @@
                 <form action="" method="POST">
                     <?php 
                         if(isset($_POST['submit'])) {
-                            $kategori = $_POST['kategori'];
-                            $query = mysqli_query($koneksi, "INSERT INTO kategori(kategori) VALUES('$kategori')");
-                            if($query) {
-                                echo '<script>alert("Tambah data berhasil"); </script>';
+                            $kategori = strtolower($_POST['kategori']);
+                            
+                            $cek = mysqli_query($koneksi, "SELECT * FROM kategori WHERE kategori='$kategori'");
+                            echo $kategori;
+                            if($cek){
+                                echo "Data yang dimasukkan sama";
                             } else {
-                                echo '<script> alert("Tambah data gagal");</script>';
+                                $query = mysqli_query($koneksi, "INSERT INTO kategori(kategori) VALUES('$kategori')");
+                                if($query) {
+                                    echo '<script>alert("Tambah data berhasil"); </script>';
+                                } else {
+                                    echo '<script> alert("Tambah data gagal");</script>';
+                                }
                             }
+                            
                         }
                     ?>
                     <div class="row">

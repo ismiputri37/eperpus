@@ -19,10 +19,10 @@
                 $i=1;
                 if ($_SESSION['user']['level'] == 'peminjam'){
                     $query = mysqli_query($koneksi, "SELECT * FROM peminjaman JOIN user on
-                    user.id_user=peminjaman.id_user JOIN buku ON buku.id_buku=peminjaman.id_buku");
+                    user.id_user=peminjaman.id_user JOIN buku ON buku.id_buku=peminjaman.id_buku where peminjaman.id_user=".$_SESSION['user']['id_user']);
                 } else {
                     $query = mysqli_query($koneksi, "SELECT * FROM peminjaman JOIN user on
-                    user.id_user=peminjaman.id_user JOIN buku ON buku.id_buku=peminjaman.id_buku where peminjaman.id_user=".$_SESSION['user']['id_user']);
+                    user.id_user=peminjaman.id_user JOIN buku ON buku.id_buku=peminjaman.id_buku");
                 }
                 while ($data = mysqli_fetch_array($query)) :
             ?>

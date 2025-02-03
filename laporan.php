@@ -14,30 +14,35 @@
                 <th>Denda</th>
                 <th>Status Peminjaman</th>
             </tr>
-            
-            <?php 
+
+            <?php
                 $i=1;
-                $query = mysqli_query($koneksi, "SELECT * FROM peminjaman LEFT JOIN user on 
-                user.id_user=peminjaman.id_user LEFT JOIN buku ON buku.id_buku=peminjaman.id_buku");
+                if ($_SESSION['user']['level'] == 'peminjam'){
+                    $query = mysqli_query($koneksi, "SELECT * FROM peminjaman JOIN user on
+                    user.id_user=peminjaman.id_user JOIN buku ON buku.id_buku=peminjaman.id_buku");
+                } else {
+                    $query = mysqli_query($koneksi, "SELECT * FROM peminjaman JOIN user on
+                    user.id_user=peminjaman.id_user JOIN buku ON buku.id_buku=peminjaman.id_buku where peminjaman.id_user=".$_SESSION['user']['id_user']);
+                }
                 while ($data = mysqli_fetch_array($query)) :
             ?>
             <tr>
                 <td><?= $i++; ?></td>
                 <!-- nama user -->
-                <td><?= $data['nama']; ?></td> 
-                <td><?= $data['judul']; ?></td> 
-                <td><?= $data['tanggal_peminjaman']; ?></td> 
-                <td><?= $data['tanggal_pengembalian']; ?></td> 
+                <td><?= $data['nama']; ?></td>
+                <td><?= $data['judul']; ?></td>
+                <td><?= $data['tanggal_peminjaman']; ?></td>
+                <td><?= $data['tanggal_pengembalian']; ?></td>
                 <td>
-                    <?php 
-                        
+                    <?php
+
                         $tanggal_sekarang = date("d/m/Y");
                         $tanggal_jatuh_tempo = date('d/m/Y', strtotime(date("Y-m-d"). ' + 5 days'));
                         echo $tanggal_jatuh_tempo;
                     ?>
-                </td> 
-                <td></td> 
-                <td><?= $data['status_peminjaman']; ?></td> 
+                </td>
+                <td></td>
+                <td><?= $data['status_peminjaman']; ?></td>
 
 
                 <td>
@@ -46,9 +51,9 @@
                     <a onclick="return confirm('Apakah anda yakin menghapus data ini')" href="?page=peminjaman_hapus&&id=<?= $data['id_peminjaman']?>" class="btn btn-danger">Hapus</a>
                 </td>
             </tr>
-            
-            <?php endwhile; ?>            
-            
+
+            <?php endwhile; ?>
+
         </table>
     </div>
 </div>

@@ -8,17 +8,17 @@
                         if(isset($_POST['submit'])) {
                             $kategori = strtolower($_POST['kategori']);
                             
-                            $cek = mysqli_query($koneksi, "SELECT * FROM kategori WHERE kategori='$kategori'");
-                            echo $kategori;
-                            if($cek){
-                                echo "Data yang dimasukkan sama";
+                            $cek = mysqli_query($koneksi, "SELECT * FROM kategori WHERE LOWER(kategori)='$kategori'");
+                            $check = mysqli_num_rows($cek);
+                            if ($check > 0){
+                                echo "Data yang dimasukkan sama";                                   
                             } else {
                                 $query = mysqli_query($koneksi, "INSERT INTO kategori(kategori) VALUES('$kategori')");
                                 if($query) {
                                     echo '<script>alert("Tambah data berhasil"); </script>';
                                 } else {
                                     echo '<script> alert("Tambah data gagal");</script>';
-                                }
+                                }                             
                             }
                             
                         }

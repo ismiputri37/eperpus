@@ -13,10 +13,11 @@
                             $penulis = $_POST['penulis'];
                             $penerbit = $_POST['penerbit'];
                             $tahun_terbit = $_POST['tahun_terbit'];
+                            $kuantitas = $_POST['kuantitas'];
                             $deskripsi = $_POST['deskripsi'];
 
                             $query = mysqli_query($koneksi, "UPDATE buku SET id_kategori='$id_kategori', judul='$judul', penulis='$penulis', penerbit='$penerbit', 
-                                tahun_terbit='$tahun_terbit', deskripsi='$deskripsi' WHERE id_buku=$id");
+                                tahun_terbit='$tahun_terbit', kuantitas='$kuantitas', deskripsi='$deskripsi' WHERE id_buku=$id");
                             if($query) {
                                 echo '<script>alert("Update data berhasil"); </script>';
                             } else {
@@ -64,6 +65,10 @@
                         <div class="row mb-3">
                             <div class="col-md-2">Tahun Terbit</div>
                             <div class="col-md-8"><input type="number" value="<?= $data['tahun_terbit']; ?>" class="form-control" name="tahun_terbit" min="1900" max="2025"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-2">Jumlah</div>
+                            <div class="col-md-8"><input type="number" value="<?= $data['kuantitas']; ?>" class="form-control" name="kuantitas"></div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-2">Deskripsi</div>

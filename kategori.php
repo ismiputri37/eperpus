@@ -9,7 +9,7 @@
                 <th>Aksi</th>
             </tr>
             
-            <?php 
+            <?php
                 $i=1;
                 $query = mysqli_query($koneksi, "SELECT * FROM kategori");
                 while ($data = mysqli_fetch_array($query)) :
@@ -24,7 +24,7 @@
                 </td>
             </tr>
             
-            <?php endwhile; ?>            
+            <?php endwhile; ?>        
             
         </table>
     </div>

@@ -77,6 +77,7 @@ CREATE TABLE `peminjaman` (
   `id_user` int(11) DEFAULT NULL,
   `id_buku` int(11) DEFAULT NULL,
   `tanggal_peminjaman` varchar(255) DEFAULT NULL,
+  `tanggal_jatuh_tempo` varchar(255) DEFAULT NULL,
   `tanggal_pengembalian` varchar(255) DEFAULT NULL,
   `status_peminjaman` enum('dipinjam','dikembalikan') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -85,10 +86,10 @@ CREATE TABLE `peminjaman` (
 -- Dumping data for table `peminjaman`
 --
 
-INSERT INTO `peminjaman` (`id_peminjaman`, `id_user`, `id_buku`, `tanggal_peminjaman`, `tanggal_pengembalian`, `status_peminjaman`) VALUES
-(1, 4, 1, '21-11-2024', NULL, 'dikembalikan'),
-(2, 4, 1, '21-11-2024', NULL, 'dikembalikan'),
-(3, 3, 1, '2025-01-27', '2025-01-29', 'dipinjam');
+INSERT INTO `peminjaman` (`id_peminjaman`, `id_user`, `id_buku`, `tanggal_peminjaman`, `tanggal_jatuh_tempo`, `tanggal_pengembalian`, `status_peminjaman`) VALUES
+(1, 4, 1, '21-11-2024', NULL, NULL, 'dikembalikan'),
+(2, 4, 1, '21-11-2024', NULL, NULL, 'dikembalikan'),
+(3, 3, 1, '2025-01-27', '2025-01-29', NULL, 'dipinjam');
 
 -- --------------------------------------------------------
 

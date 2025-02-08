@@ -43,9 +43,8 @@ CREATE TABLE `buku` (
 --
 
 INSERT INTO `buku` (`id_buku`, `id_kategori`, `judul`, `penulis`, `penerbit`, `tahun_terbit`, `deskripsi`) VALUES
-(1, 3, 'Bumi Manusia', 'Pramoedya', 'Hasta Mitra', '2020', 'lorem ipsum'),
-(2, 3, 'Bumi Manusia', 'Pramoedya', 'Hasta Mitra', '2020', 'lorem ipsum'),
-(3, 3, 'Laut Bercerita', 'Maryam Karpov', 'Gramedia', '2022', 'Laut Bercerita');
+(1, 2, 'Bumi Manusia', 'Pramoedya', 'Hasta Mitra', '2020', 'lorem ipsum'),
+(2, 2, 'Laut Bercerita', 'Maryam Karpov', 'Gramedia', '2022', 'Laut Bercerita');
 
 -- --------------------------------------------------------
 
@@ -63,8 +62,9 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`id_kategori`, `kategori`) VALUES
-(3, 'romance 3'),
-(4, 'History');
+(1, 'romance 3'),
+(2, 'Roman'),
+(3, 'History');
 
 -- --------------------------------------------------------
 
@@ -86,9 +86,9 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`id_peminjaman`, `id_user`, `id_buku`, `tanggal_peminjaman`, `tanggal_pengembalian`, `status_peminjaman`) VALUES
-(8, 3, 2, '21-11-2024', '0', 'dikembalikan'),
-(9, 3, 2, '21-11-2024', '23', 'dikembalikan'),
-(11, 8, 1, '2025-01-27', '2025-01-29', 'dipinjam');
+(1, 4, 1, '21-11-2024', NULL, 'dikembalikan'),
+(2, 4, 1, '21-11-2024', NULL, 'dikembalikan'),
+(3, 3, 1, '2025-01-27', '2025-01-29', 'dipinjam');
 
 -- --------------------------------------------------------
 
@@ -109,10 +109,8 @@ CREATE TABLE `ulasan` (
 --
 
 INSERT INTO `ulasan` (`id_ulasan`, `id_user`, `id_buku`, `ulasan`, `rating`) VALUES
-(3, 9, 1, 'vhvjh hvjhg', 7),
-(4, 9, 1, 'vhvjh hvjhg', 7),
-(5, 3, 3, 'kamu jangan move on! buku cerita yang snagat bagus dan membuat gagal move on', 7),
-(6, 3, 1, 'sknsen ratign 4', 4);
+(1, 4, 2, 'kamu jangan move on! buku cerita yang snagat bagus dan membuat gagal move on', 7),
+(2, 4, 1, 'sknsen ratign 4', 4);
 
 -- --------------------------------------------------------
 
@@ -136,14 +134,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nama`, `username`, `password`, `email`, `alamat`, `no_telepon`, `level`) VALUES
-(3, 'Administrator', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@gmai.com', 'ende', '0812387868', 'admin'),
-(4, 'Petugas1', 'petugas', 'afb91ef692fd08c445e8cb1bab2ccf9c', 'petugas@gmail.com', 'Anaraja', '082863278', 'petugas'),
-(5, 'Peminjam1', 'peminjam', '55f3894bc5fc71fead8412d321c2952c', 'peminjam@gmail.com', 'Nangapanda', '0986318351', 'peminjam'),
-(6, 'Petugas1', 'petugas', 'afb91ef692fd08c445e8cb1bab2ccf9c', 'petugas@gmail.com', 'Anaraja', '082863278', 'petugas'),
-(7, 'Peminjam1', 'peminjam', '55f3894bc5fc71fead8412d321c2952c', 'peminjam@gmail.com', 'Nangapanda', '0986318351', 'peminjam'),
-(8, 'mtsn1ende', 'peminjam2', '53c00c96141e24cfff921a36ce962dd6', 'peminjam2@gmail.com', 'Jln. Ende-Bajawa Km. 21, Anaraja, Nangapanda, Ende', '902717232', 'peminjam'),
-(9, 'admin2', 'admin2', 'c84258e9c39059a89ab77d846ddab909', 'admin2@gmail.com', 'Jln. Ende-Bajawa Km. 21, Anaraja, Nangapanda, Ende', '7239186', 'admin'),
-(10, 'Admin2', 'admin2', 'c84258e9c39059a89ab77d846ddab909', 'admin2@gmail.com', 'ende', '089732123', 'admin');
+(1, 'Administrator', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@gmai.com', 'ende', '0812387868', 'admin'),
+(2, 'Petugas1', 'petugas', 'afb91ef692fd08c445e8cb1bab2ccf9c', 'petugas@gmail.com', 'Anaraja', '082863278', 'petugas'),
+(3, 'Peminjam1', 'peminjam', '55f3894bc5fc71fead8412d321c2952c', 'peminjam@gmail.com', 'Nangapanda', '0986318351', 'peminjam'),
+(4, 'mtsn1ende', 'peminjam2', '53c00c96141e24cfff921a36ce962dd6', 'peminjam2@gmail.com', 'Jln. Ende-Bajawa Km. 21, Anaraja, Nangapanda, Ende', '902717232', 'peminjam'),
+(5, 'admin2', 'admin2', 'c84258e9c39059a89ab77d846ddab909', 'admin2@gmail.com', 'Jln. Ende-Bajawa Km. 21, Anaraja, Nangapanda, Ende', '7239186', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -154,7 +149,7 @@ INSERT INTO `user` (`id_user`, `nama`, `username`, `password`, `email`, `alamat`
 --
 ALTER TABLE `buku`
   ADD PRIMARY KEY (`id_buku`),
-  ADD KEY `Id_kategori` (`id_kategori`);
+  ADD KEY `id_kategori` (`id_kategori`);
 
 --
 -- Indexes for table `kategori`
@@ -226,7 +221,7 @@ ALTER TABLE `user`
 -- Constraints for table `buku`
 --
 ALTER TABLE `buku`
-  ADD CONSTRAINT `buku_ibfk_1` FOREIGN KEY (`Id_kategori`) REFERENCES `kategori` (`id_kategori`);
+  ADD CONSTRAINT `buku_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`);
 
 --
 -- Constraints for table `peminjaman`
@@ -240,8 +235,7 @@ ALTER TABLE `peminjaman`
 --
 ALTER TABLE `ulasan`
   ADD CONSTRAINT `ulasan_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
-  ADD CONSTRAINT `ulasan_ibfk_2` FOREIGN KEY (`id_buku`) REFERENCES `buku` (`id_buku`),
-  ADD CONSTRAINT `ulasan_ibfk_3` FOREIGN KEY (`id_buku`) REFERENCES `buku` (`id_buku`);
+  ADD CONSTRAINT `ulasan_ibfk_2` FOREIGN KEY (`id_buku`) REFERENCES `buku` (`id_buku`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

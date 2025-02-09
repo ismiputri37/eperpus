@@ -6,10 +6,11 @@
                 <form action="" method="POST">
                     <?php 
                         if(isset($_POST['submit'])) {
+                            // tangkap data dan ubah data kategori menjadi lowercase
                             $kategori = strtolower($_POST['kategori']);
-                            
+                            // mengecek data kategori
                             $cek = mysqli_query($koneksi, "SELECT * FROM kategori WHERE LOWER(kategori)='$kategori'");
-                            $check = mysqli_num_rows($cek);
+                            $check = mysqli_num_rows($cek);                            
                             if ($check > 0){
                                 echo "Data yang dimasukkan sama";                                   
                             } else {
@@ -19,8 +20,7 @@
                                 } else {
                                     echo '<script> alert("Tambah data gagal");</script>';
                                 }                             
-                            }
-                            
+                            }                            
                         }
                     ?>
                     <div class="row">

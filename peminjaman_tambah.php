@@ -20,7 +20,7 @@
     }
 </style>
 
-<h1 class="mt-4">Peminjaman Buku</h1>
+<h1 class="mt-4">Tambah Peminjaman Buku</h1>
 <div class="card">
     <div class="card-body">
         <div class="row">
@@ -49,7 +49,6 @@
                                     alert("Peminjaman berhasil");
                                     window.location.href = "/index.php?page=peminjaman";
                                     </script>';
-
                                 } else {
                                     echo '<script> alert("Peminjaman gagal"); </script>';
                                 }
@@ -182,20 +181,13 @@
                             </script>
                             </div>
                         </div>
-                        <!-- menampilkan judul buku -->
-                        <!-- <div class="row mb-3">
-                            <div class="col-md-2">Tanggal Peminjaman</div>
-                            <div class="col-md-8">
-                                <input type="date" class="form-control" name="tanggal_peminjaman" required>
-                            </div>
-                        </div> -->
                         <!-- button submit -->
                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                             <div class="col-md-4">
                                 <div class="col-md-8">
                                     <button type="submit" class="btn btn-primary" name="submit" value="submit">Simpan</button>
                                     <button type="reset" class="btn btn-secondary">Reset</button>
-                                    <a href="?page=laporan" class="btn btn-danger">Kembali</a>
+                                    <a href="?page=peminjaman" class="btn btn-danger">Kembali</a>
                                 </div>
                             </div>
                         </div>

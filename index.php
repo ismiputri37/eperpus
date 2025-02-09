@@ -50,7 +50,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="index.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
@@ -63,25 +63,26 @@
                                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                     Kategori
                                 </a> 
-                                <a class="nav-link" href="?page=buku">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
-                                    Buku
-                                </a> 
-                            <!-- membagi hak akses peminjam -->
-                            <?php 
-                                }else {
-                            ?>
-                                <a class="nav-link" href="?page=peminjaman">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                    Peminjaman
-                                </a> 
+                                
+                            <!-- membagi hak akses peminjam -->                           
                             <?php 
                                 }
                             ?>
+                            <a class="nav-link" href="?page=buku">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                                Buku
+                            </a> 
                             <a class="nav-link" href="?page=ulasan">
                                 <div class="sb-nav-link-icon"><i class="fas fa-comment"></i></div>
                                 Ulasan
-                            </a> <a class="nav-link" href="logout.php">
+                            </a> 
+                            
+                            <a class="nav-link" href="?page=peminjaman">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                                Peminjaman
+                            </a> 
+                            
+                            <a class="nav-link" href="logout.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-power-off"></i></div>
                                 Logout
                             </a> 

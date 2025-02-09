@@ -40,7 +40,7 @@
                         <!-- menampilkan judul buku -->
                         <div class="row mb-3">
                             <div class="col-md-2">Ulasan</div>
-                            <div class="col-md-8"><textarea name="ulasan" rows="5" class="form-control" id=""></textarea></div>
+                            <div class="col-md-8"><textarea name="ulasan" rows="5" class="form-control" required></textarea></div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-2">Rating</div>

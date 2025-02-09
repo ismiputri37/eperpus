@@ -28,21 +28,21 @@
                                         <?php 
                                             // ketika tombol login ditekan
                                             if (isset($_POST['login'])) {
-                                                // tangkap data username dan password dari form
+                                                
                                                 $username = $_POST['username']; 
                                                 $password = md5($_POST['password']);
-                                                // validasi data apakah data di form sesuai dengan data di tabel user
+                                                
                                                 $data = mysqli_query($koneksi,"SELECT*FROM user 
                                                     WHERE username='$username' and password='$password'");
-                                                // menghitung jumlah baris pada db, 
+                                             
                                                 $cek = mysqli_num_rows($data);
-                                                // jika baris lebih dari 0 maka login berhasil
+                                                
                                                 if ($cek > 0) {
-                                                    // ubah data menjadi array
+                                                   
                                                     $_SESSION['user'] = mysqli_fetch_array($data);
                                                     echo '<script>alert("Selamat datang, login berhasil!"); 
                                                     location.href="index.php"; </script>';
-                                                // jika baris kurang dari 0, maka login gagal
+                                           
                                                 } else {
                                                     echo '<script>alert("Maaf, username atau password salah");</script>';
                                                 }

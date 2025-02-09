@@ -1,4 +1,4 @@
-<h1 class="mt-4">Kategori Buku</h1>
+<h1 class="mt-4">Ulasan Buku</h1>
 <div class="row">
     <div class="col-md-12">
         <a href="?page=ulasan_tambah" class="btn btn-primary">Tambah Data</a>

@@ -34,10 +34,6 @@
                             $id_buku = $_POST["id_buku"];
                             $id_user = $_POST['id_user'];
 
-                            // $tanggal_peminjaman = $_POST['tanggal_peminjaman'];
-                            // $tanggal_pengembalian = $_POST['tanggal_pengembalian'];
-                            // $tanggal_jatuh_tempo = $_POST['tanggal_jatuh_tempo'];
-                            // $status_peminjaman = $_POST['status_peminjaman'];
                             $tanggal_sekarang = date("d/m/Y");
                             $tanggal_jatuh_tempo = date('d/m/Y', strtotime(date("Y-m-d"). ' + 5 days'));
 

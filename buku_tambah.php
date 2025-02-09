@@ -4,34 +4,60 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- menyimpan data ke database -->
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     <?php 
                         if(isset($_POST['submit'])) {
-                            // $buku = $_POST['buku'];
                             $id_kategori = $_POST['id_kategori'];
                             $judul = ucfirst($_POST['judul']);
                             $penulis = ucfirst($_POST['penulis']);
                             $penerbit = ucfirst($_POST['penerbit']);
                             $tahun_terbit = $_POST['tahun_terbit'];
-                            $kuantitas = $_POST['kuantitas'];
-                            $deskripsi = $_POST['deskripsi'];
-                            $cek = mysqli_query($koneksi, "SELECT * FROM buku WHERE UPPER(judul)='$judul'");
-                            $check = mysqli_num_rows($cek);
-                            if ($check > 0) {
-                                echo "Data pernah dimasukkan";
-                            } else {
-                                $query = mysqli_query($koneksi, "INSERT INTO buku(id_kategori, judul, penulis, penerbit, tahun_terbit, kuantitas, deskripsi) 
-                                VALUES('$id_kategori', '$judul', '$penulis', '$penerbit', '$tahun_terbit', '$kuantitas','$deskripsi')");
-                                if($query) {
-                                    echo '<script>alert("Tambah data berhasil"); </script>';
+                            $isbn = $_POST['isbn'];
+                            $jumlah = $_POST['jumlah'];
+                            $sinopsis = $_POST['sinopsis'];
+                        
+                            // Proses Upload Gambar
+                            $gambar = $_FILES['gambar'];
+                            $upload_dir = "upload/"; // Direktori penyimpanan gambar
+                            $ext = pathinfo($gambar['name'], PATHINFO_EXTENSION);
+                            $filename = time() . "." . $ext; // Rename agar unik
+                            $file_path = $upload_dir . $filename;
+                        
+                            $allowed_ext = ['jpg', 'jpeg', 'png', 'gif'];
+                            if (!in_array(strtolower($ext), $allowed_ext)) {
+                                die("Format gambar tidak didukung! Hanya JPG, JPEG, PNG, GIF.");
+                            }
+                        
+                            if (move_uploaded_file($gambar['tmp_name'], $file_path)) {
+                                // Cek apakah judul sudah ada
+                                $cek = mysqli_query($koneksi, "SELECT * FROM buku WHERE judul='$judul'");
+                                $check = mysqli_num_rows($cek);
+                        
+                                if ($check > 0) {
+                                    echo "Data pernah dimasukkan";
                                 } else {
-                                    echo '<script> alert("Tambah data gagal");</script>';
+                                    // Simpan ke database
+                                    $query = mysqli_query($koneksi, "INSERT INTO buku(id_kategori, judul, penulis, penerbit, tahun_terbit, isbn, jumlah, sinopsis, gambar) 
+                                    VALUES('$id_kategori', '$judul', '$penulis', '$penerbit', '$tahun_terbit', '$isbn', '$jumlah', '$sinopsis', '$filename')");
+                        
+                                    if($query) {
+                                        echo '<script>alert("Tambah data berhasil"); window.location.href ="?page=buku"; </script>';
+
+                                    } else {
+                                        echo '<script> alert("Tambah data gagal");</script>';
+                                    }
                                 }
-                            }                           
+                            } else {
+                                echo "Gagal mengunggah gambar.";
+                            }
                         }
                     ?>
-                    <!-- menampilkan nama kategori -->
+                    
                     <div class="row">
+                        <div class="row mb-3">
+                            <div class="col-md-2">Upload Gambar</div>
+                            <div class="col-md-8"><input type="file" class="form-control" name="gambar" required></div>
+                        </div>
                         <div class="row mb-3">
                             <div class="col-md-2">Kategori</div>
                             <div class="col-md-8">
@@ -60,22 +86,26 @@
                         <div class="row mb-3">
                             <div class="col-md-2">Penerbit</div>
                             <div class="col-md-8"><input type="text" class="form-control" name="penerbit" required></div>
-                        </div><div class="row mb-3">
-                            <div class="col-md-2">Tahun Terbit</div>
-                            <div class="col-md-8"><input type="number" class="form-control" name="tahun_terbit" min="1900" max="2025" required></div>
-                        </div>
-                        </div><div class="row mb-3">
-                            <div class="col-md-2">Jumlah</div>
-                            <div class="col-md-8"><input type="number" class="form-control" name="kuantitas" required></div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-2">Deskripsi</div>
+                            <div class="col-md-2">Tahun Terbit</div>
+                            <div class="col-md-8"><input type="number" class="form-control" name="tahun_terbit" min="1900" max="2025" required></div>
+                            
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-2">ISBN</div>
+                            <div class="col-md-8"><input type="text" class="form-control" name="isbn" required></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-2">Jumlah</div>
+                            <div class="col-md-8"><input type="number" class="form-control" name="jumlah" required></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-2">sinopsis</div>
                             <div class="col-md-8">
-                                <textarea name="deskripsi" rows="5" class="form-control" required></textarea>
+                                <textarea name="sinopsis" rows="5" class="form-control" required></textarea>
                             </div>
                         </div>
-
-
                         <!-- button submit -->
                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">                                            
                             <div class="col-md-4">

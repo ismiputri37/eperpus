@@ -47,7 +47,7 @@
                     ?>
                 </td>
                 <td>
-                    <a href="?page=peminjaman_ubah&&id=<?= $data['id_peminjaman']?>" class="btn btn-info">Ubah</a>
+                <a onclick="return confirm('Apakah denda sudah lunas?')" href="?page=pengembalian&id_peminjaman=<?= $data['id_peminjaman']?>" class="btn btn-info">Pengembalian</a>
                     <a onclick="return confirm('Apakah anda yakin menghapus data ini')" href="?page=peminjaman_hapus&&id=<?= $data['id_peminjaman']?>" class="btn btn-danger">Hapus</a>
                 </td>
             </tr>

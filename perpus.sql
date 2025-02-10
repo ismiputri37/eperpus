@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2025 at 04:36 PM
+-- Generation Time: Feb 10, 2025 at 01:29 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 5.6.38
 
@@ -32,20 +32,22 @@ CREATE TABLE `buku` (
   `id_buku` int(11) NOT NULL,
   `id_kategori` int(11) DEFAULT NULL,
   `judul` varchar(255) DEFAULT NULL,
+  `gambar` varchar(255) DEFAULT NULL,
   `penulis` varchar(255) DEFAULT NULL,
   `penerbit` varchar(255) DEFAULT NULL,
   `tahun_terbit` varchar(255) DEFAULT NULL,
-  `deskripsi` text
+  `deskripsi` text,
+  `kuantitas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `buku`
 --
 
-INSERT INTO `buku` (`id_buku`, `id_kategori`, `judul`, `penulis`, `penerbit`, `tahun_terbit`, `deskripsi`) VALUES
-(1, 3, 'Bumi Manusia', 'Pramoedya', 'Hasta Mitra', '2020', 'lorem ipsum'),
-(2, 3, 'Bumi Manusia', 'Pramoedya', 'Hasta Mitra', '2020', 'lorem ipsum'),
-(3, 3, 'Laut Bercerita', 'Maryam Karpov', 'Gramedia', '2022', 'Laut Bercerita');
+INSERT INTO `buku` (`id_buku`, `id_kategori`, `judul`, `gambar`, `penulis`, `penerbit`, `tahun_terbit`, `deskripsi`, `kuantitas`) VALUES
+(1, 7, 'Bumi Manusia', NULL, 'Pramoedya', 'Hasta Mitra', '2020', 'lorem ipsum', 2),
+(3, 14, 'Laut Bercerita', NULL, 'Maryam Karpov', 'Gramedia', '2022', 'Laut Bercerita', 5),
+(10, 7, 'Manusia Kuat', NULL, 'Tlus', 'Gramedia', '2004', 'lorem ipsum', 2);
 
 -- --------------------------------------------------------
 
@@ -63,8 +65,12 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`id_kategori`, `kategori`) VALUES
-(3, 'romance 3'),
-(4, 'History');
+(4, 'history'),
+(7, 'horor'),
+(14, 'macan'),
+(15, 'action'),
+(16, 'macam'),
+(21, 'minum');
 
 -- --------------------------------------------------------
 
@@ -86,9 +92,9 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`id_peminjaman`, `id_user`, `id_buku`, `tanggal_peminjaman`, `tanggal_pengembalian`, `status_peminjaman`) VALUES
-(8, 3, 2, '21-11-2024', '0', 'dikembalikan'),
-(9, 3, 2, '21-11-2024', '23', 'dikembalikan'),
-(11, 8, 1, '2025-01-27', '2025-01-29', 'dipinjam');
+(11, 8, 1, '2025-01-27', '2025-01-29', 'dipinjam'),
+(16, 3, 3, '2025-01-29', '2025-02-05', 'dikembalikan'),
+(26, 8, 1, '2025-02-02', '', 'dipinjam');
 
 -- --------------------------------------------------------
 
@@ -109,10 +115,9 @@ CREATE TABLE `ulasan` (
 --
 
 INSERT INTO `ulasan` (`id_ulasan`, `id_user`, `id_buku`, `ulasan`, `rating`) VALUES
-(3, 9, 1, 'vhvjh hvjhg', 7),
-(4, 9, 1, 'vhvjh hvjhg', 7),
+(4, 9, 1, 'vhvjh hvjhg dzfbsdfb', 9),
 (5, 3, 3, 'kamu jangan move on! buku cerita yang snagat bagus dan membuat gagal move on', 7),
-(6, 3, 1, 'sknsen ratign 4', 4);
+(7, 8, 1, 'badasdsgbjsa', 10);
 
 -- --------------------------------------------------------
 
@@ -143,7 +148,8 @@ INSERT INTO `user` (`id_user`, `nama`, `username`, `password`, `email`, `alamat`
 (7, 'Peminjam1', 'peminjam', '55f3894bc5fc71fead8412d321c2952c', 'peminjam@gmail.com', 'Nangapanda', '0986318351', 'peminjam'),
 (8, 'mtsn1ende', 'peminjam2', '53c00c96141e24cfff921a36ce962dd6', 'peminjam2@gmail.com', 'Jln. Ende-Bajawa Km. 21, Anaraja, Nangapanda, Ende', '902717232', 'peminjam'),
 (9, 'admin2', 'admin2', 'c84258e9c39059a89ab77d846ddab909', 'admin2@gmail.com', 'Jln. Ende-Bajawa Km. 21, Anaraja, Nangapanda, Ende', '7239186', 'admin'),
-(10, 'Admin2', 'admin2', 'c84258e9c39059a89ab77d846ddab909', 'admin2@gmail.com', 'ende', '089732123', 'admin');
+(10, 'Admin2', 'admin2', 'c84258e9c39059a89ab77d846ddab909', 'admin2@gmail.com', 'ende', '089732123', 'admin'),
+(11, 'admin4', 'admin4', 'fc1ebc848e31e0a68e868432225e3c82', 'admin4@gmail.com', 'ende', '0842872436', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -192,31 +198,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `ulasan`
 --
 ALTER TABLE `ulasan`
-  MODIFY `id_ulasan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_ulasan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

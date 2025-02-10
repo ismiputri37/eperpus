@@ -47,7 +47,7 @@
                                 if($query) {
                                     echo '<script>
                                     alert("Peminjaman berhasil");
-                                    window.location.href = "?page=peminjaman";
+                                    window.location.href = "/index.php?page=peminjaman";
                                     </script>';
                                 } else {
                                     echo '<script> alert("Peminjaman gagal"); </script>';
@@ -181,7 +181,6 @@
                             </script>
                             </div>
                         </div>
-                        
                         <!-- button submit -->
                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                             <div class="col-md-4">

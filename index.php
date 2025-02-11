@@ -57,52 +57,33 @@
                             <div class="sb-sidenav-menu-heading">NAVIGASI</div>
                             <!-- pembagian hak akses -->
                             <?php
-                                if ($_SESSION['user']['level'] == 'peminjam') {
+                                if ($_SESSION['user']['level'] == 'admin') {
                             ?>
-                                <a class="nav-link" href="?page=kategori">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                    Kategori
-                                </a>
-                                <a class="nav-link" href="?page=buku">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
-                                    Buku
-                                </a>
-                            <!-- membagi hak akses peminjam -->
-                            <?php
-                                }else {
-                            ?>
-                                <a class="nav-link" href="?page=kategori">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                    Kategori
-                                </a>
-                                <a class="nav-link" href="?page=buku">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
-                                    Buku
-                                </a>
                                 <a class="nav-link" href="?page=peminjaman">
                                     <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                     Peminjaman
                                 </a>
-                            <?php 
-                                
-                            <!-- membagi hak akses peminjam -->                           
-                            <?php 
+                            <?php
                                 }
                             ?>
+                            <a class="nav-link" href="?page=kategori">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Kategori
+                            </a>
                             <a class="nav-link" href="?page=buku">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                                 Buku
-                            </a> 
+                            </a>
                             <a class="nav-link" href="?page=ulasan">
                                 <div class="sb-nav-link-icon"><i class="fas fa-comment"></i></div>
                                 Ulasan
-                            </a> 
-                            
+                            </a>
+
                             <a class="nav-link" href="?page=peminjaman">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                                 Peminjaman
-                            </a> 
-                            
+                            </a>
+
                             <a class="nav-link" href="logout.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-power-off"></i></div>
                                 Logout

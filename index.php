@@ -13,7 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Login</title>
+        <title>Dashboard</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -21,7 +21,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+            <a class="navbar-brand ps-3" href="index.php">E-Perpus</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -56,36 +56,36 @@
                             </a>
                             <div class="sb-sidenav-menu-heading">NAVIGASI</div>
                             <!-- pembagian hak akses -->
+                           
+                                <a class="nav-link" href="?page=peminjaman">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                    Peminjaman
+                                </a>
                             <?php
-                                if ($_SESSION['user']['level'] !== 'peminjam') {
+                            if ($_SESSION['user']['level'] == 'admin') :
                             ?>
-                                <a class="nav-link" href="?page=kategori">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                    Kategori
-                                </a>
-                                <a class="nav-link" href="?page=buku">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
-                                    Buku
-                                </a>
-                            <!-- membagi hak akses peminjam -->
-                            <?php
-                                }
-                            ?>                                
-                            <a class="nav-link" href="?page=peminjaman">
+                            <a class="nav-link" href="?page=kategori">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Kategori
+                            </a>
+                            <?php endif; ?>
+                            <a class="nav-link" href="?page=buku">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
-                                Peminjaman
-                            </a> 
-                            
+                                Buku
+                            </a>
+                            <a class="nav-link" href="?page=ulasan">
+                                <div class="sb-nav-link-icon"><i class="fas fa-comment"></i></div>
+                                Ulasan
+                            </a>
                             <a class="nav-link" href="logout.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-power-off"></i></div>
                                 Logout
                             </a>
-                            <!-- Login sebagai  -->
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        <?=$_SESSION['user']['nama']; ?>
+                        <?= $_SESSION['user']['nama']; ?>
                     </div>
                 </nav>
             </div>
@@ -107,7 +107,6 @@
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">Copyright &copy; Your Website 2023</div>
-
                         </div>
                     </div>
                 </footer>

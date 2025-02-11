@@ -1,25 +1,3 @@
-<style>
-    .dropdown-menu {
-        position: absolute;
-        width: 100%;
-        max-height: 200px;
-        overflow-y: auto;
-        background: white;
-        border: 1px solid #ddd;
-        display: none;
-        z-index: 1000;
-    }
-
-    .dropdown-item {
-        padding: 8px;
-        cursor: pointer;
-    }
-
-    .dropdown-item:hover {
-        background: #f0f0f0;
-    }
-</style>
-
 <h1 class="mt-4">Tambah Peminjaman Buku</h1>
 <div class="card">
     <div class="card-body">
@@ -45,10 +23,16 @@
                                 $query = mysqli_query($koneksi, "INSERT INTO peminjaman(id_buku, id_user, tanggal_peminjaman, tanggal_jatuh_tempo, status_peminjaman)
                                 VALUES('$id_buku', '$id_user', '$tanggal_sekarang', '$tanggal_jatuh_tempo', 'dipinjam')");
                                 if($query) {
-                                    echo '<script>
-                                    alert("Peminjaman berhasil");
-                                    window.location.href = "/index.php?page=peminjaman";
-                                    </script>';
+                                    // Reduce the value of buku.jumlah by 1
+                                    $update_buku = mysqli_query($koneksi, "UPDATE buku SET jumlah = jumlah - 1 WHERE id_buku = '$id_buku'");
+                                    if($update_buku) {
+                                        echo '<script>
+                                        alert("Peminjaman berhasil");
+                                        window.location.href = "?page=peminjaman";
+                                        </script>';
+                                    } else {
+                                        echo '<script> alert("Peminjaman berhasil, tetapi gagal mengurangi jumlah buku"); </script>';
+                                    }
                                 } else {
                                     echo '<script> alert("Peminjaman gagal"); </script>';
                                 }
@@ -119,12 +103,6 @@
                         <div class="row mb-3">
                             <div class="col-md-2">Buku</div>
                             <div class="col-md-8">
-
-                            <!-- <input type="text" id="cariBuku" class="form-control" list="bukuList" placeholder="Cari buku"> -->
-                            <!-- <datalist id="bukuList"> -->
-                                <!-- Options will be populated by JavaScript -->
-                            <!-- </datalist> -->
-                            <!-- <input type="hidden" id="id_buku"> -->
                             <input type="text" id="cariBuku" class="form-control" placeholder="Cari buku">
                             <div id="dropdownBuku" class="dropdown-menu"></div>
                             <input type="hidden" id="id_buku" name="id_buku">

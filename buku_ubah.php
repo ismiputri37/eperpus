@@ -5,40 +5,49 @@
             <div class="col-md-12">
                 <!-- menyimpan data ke database -->
                 <form action="" method="POST" enctype="multipart/form-data">
-                    <?php                   
-                    $id = $_GET['id'];                    
+                    <?php
+                    $id = $_GET['id'];
                     // Proses update
                     if (isset($_POST['submit'])) {
                         $id_kategori = $_POST['id_kategori'];
-                        $judul = $_POST['judul'];
-                        $penulis = $_POST['penulis'];
-                        $penerbit = $_POST['penerbit'];
+                        $judul = ucfirst($_POST['judul']);
+                        $penulis = ucfirst($_POST['penulis']);
+                        $penerbit = ucfirst($_POST['penerbit']);
                         $tahun_terbit = $_POST['tahun_terbit'];
-                        $isbn=$_POST['isbn'];
+                        $isbn = $_POST['isbn'];
                         $jumlah = $_POST['jumlah'];
                         $sinopsis = $_POST['sinopsis'];
-                        
+
                         // Menghandle upload gambar
                         $gambar_lama = $_POST['gambar_lama']; // Simpan gambar lama
                         if ($_FILES['gambar']['name'] != "") {
-                            $gambar = $_FILES['gambar']['name'];
-                            $tmp = $_FILES['gambar']['tmp_name'];
-                            move_uploaded_file($tmp, "upload/" . $gambar);
+                            $gambar = $_FILES['gambar'];
+                            $upload_dir = "upload/"; // Direktori penyimpanan gambar
+                            $ext = pathinfo($gambar['name'], PATHINFO_EXTENSION);
+                            $filename = time() . "." . $ext; // Rename agar unik
+                            $file_path = $upload_dir . $filename;
+
+                            // Hapus gambar lama jika ada
+                            if (file_exists($upload_dir . $gambar_lama)) {
+                                unlink($upload_dir . $gambar_lama);
+                            }
+
+                            move_uploaded_file($gambar['tmp_name'], $file_path);
                         } else {
-                            $gambar = $gambar_lama;
+                            $filename = $gambar_lama;
                         }
 
                         // Query update
-                        $query = mysqli_query($koneksi, "UPDATE buku SET 
-                            id_kategori='$id_kategori', 
-                            gambar='$gambar', 
-                            judul='$judul', 
-                            penulis='$penulis', 
-                            penerbit='$penerbit', 
-                            tahun_terbit='$tahun_terbit', 
+                        $query = mysqli_query($koneksi, "UPDATE buku SET
+                            id_kategori='$id_kategori',
+                            gambar='$filename',
+                            judul='$judul',
+                            penulis='$penulis',
+                            penerbit='$penerbit',
+                            tahun_terbit='$tahun_terbit',
                             isbn='$isbn',
-                            jumlah='$jumlah', 
-                            sinopsis='$sinopsis' 
+                            jumlah='$jumlah',
+                            sinopsis='$sinopsis'
                             WHERE id_buku='$id'");
 
                         if ($query) {
@@ -52,14 +61,14 @@
                     $query = mysqli_query($koneksi, "SELECT * FROM buku WHERE id_buku='$id'");
                     $data = mysqli_fetch_array($query);
                     ?>
-                    
+
                     <input type="hidden" name="gambar_lama" value="<?= $data['gambar']; ?>">
 
                     <!-- menampilkan kategori -->
                     <div class="row mb-3">
                         <div class="col-md-2">Kategori</div>
                         <div class="col-md-8">
-                            <select name="id_kategori" class="form-control">
+                            <select name="id_kategori" class="form-select" aria-label="Pilih Kategori">
                                 <?php
                                 $kat = mysqli_query($koneksi, "SELECT * FROM kategori");
                                 while ($kategori = mysqli_fetch_array($kat)) :
@@ -86,32 +95,32 @@
                     <!-- menampilkan judul buku -->
                     <div class="row mb-3">
                         <div class="col-md-2">Judul</div>
-                        <div class="col-md-8"><input type="text" value="<?= $data['judul']; ?>" class="form-control" name="judul"></div>
+                        <div class="col-md-8"><input type="text" value="<?= $data['judul']; ?>" class="form-control" name="judul" required></div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-2">Penulis</div>
-                        <div class="col-md-8"><input type="text" value="<?= $data['penulis']; ?>" class="form-control" name="penulis"></div>
+                        <div class="col-md-8"><input type="text" value="<?= $data['penulis']; ?>" class="form-control" name="penulis" required></div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-2">Penerbit</div>
-                        <div class="col-md-8"><input type="text" value="<?= $data['penerbit']; ?>" class="form-control" name="penerbit"></div>
+                        <div class="col-md-8"><input type="text" value="<?= $data['penerbit']; ?>" class="form-control" name="penerbit" required></div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-2">Tahun Terbit</div>
-                        <div class="col-md-8"><input type="number" value="<?= $data['tahun_terbit']; ?>" class="form-control" name="tahun_terbit" min="1900" max="2025"></div>
+                        <div class="col-md-8"><input type="number" value="<?= $data['tahun_terbit']; ?>" class="form-control" name="tahun_terbit" min="1900" max="2025" required></div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-2">ISBN</div>
-                        <div class="col-md-8"><input type="text" value="<?= $data['isbn']; ?>" class="form-control" name="isbn"></div>
+                        <div class="col-md-8"><input type="text" value="<?= $data['isbn']; ?>" class="form-control" name="isbn" required></div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-2">Jumlah</div>
-                        <div class="col-md-8"><input type="number" value="<?= $data['jumlah']; ?>" class="form-control" name="jumlah"></div>
+                        <div class="col-md-8"><input type="number" value="<?= $data['jumlah']; ?>" class="form-control" name="jumlah" required></div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-2">sinopsis</div>
+                        <div class="col-md-2">Sinopsis</div>
                         <div class="col-md-8">
-                            <textarea name="sinopsis" rows="5" class="form-control"><?= $data['sinopsis']; ?></textarea>
+                            <textarea name="sinopsis" rows="5" class="form-control" required><?= $data['sinopsis']; ?></textarea>
                         </div>
                     </div>
 

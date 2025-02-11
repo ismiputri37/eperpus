@@ -35,16 +35,19 @@ CREATE TABLE `buku` (
   `penulis` varchar(255) DEFAULT NULL,
   `penerbit` varchar(255) DEFAULT NULL,
   `tahun_terbit` varchar(255) DEFAULT NULL,
-  `deskripsi` text
+  `gambar` varchar(255) DEFAULT NULL,
+  `sinopsis` varchar(255) DEFAULT NULL,
+  `jumlah` integer DEFAULT NULL,
+  `isbn` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `buku`
 --
 
-INSERT INTO `buku` (`id_buku`, `id_kategori`, `judul`, `penulis`, `penerbit`, `tahun_terbit`, `deskripsi`) VALUES
-(1, 2, 'Bumi Manusia', 'Pramoedya', 'Hasta Mitra', '2020', 'lorem ipsum'),
-(2, 2, 'Laut Bercerita', 'Maryam Karpov', 'Gramedia', '2022', 'Laut Bercerita');
+INSERT INTO `buku` (`id_buku`, `id_kategori`, `judul`, `penulis`, `penerbit`, `tahun_terbit`, `sinopsis`, `jumlah`) VALUES
+(1, 2, 'Bumi Manusia', 'Pramoedya', 'Hasta Mitra', '2020', 'lorem ipsum', 2),
+(2, 2, 'Laut Bercerita', 'Maryam Karpov', 'Gramedia', '2022', 'Laut Bercerita', 3);
 
 -- --------------------------------------------------------
 

@@ -1,31 +1,37 @@
 <h1 class="mt-4">Daftar Buku</h1>
-<div class="row">
+<div class="row mb-3">
     <div class="col-md-12">
-        <?php
-        if ($_SESSION['user']['level'] != 'peminjam') :
-        ?>
-            <a href="?page=buku_tambah" class="btn btn-primary">Tambah Data</a>
+        <?php if ($_SESSION['user']['level'] == 'admin') : ?>
+            <a href="?page=buku_tambah" class="btn btn-primary mb-3">Tambah Data</a>
         <?php endif; ?>
+    </div>
+</div>
 
+<div class="row mb-3">
+    <div class="col-md-12">
         <!-- Search form -->
         <form method="GET" action="">
             <input type="hidden" name="page" value="buku">
-            <div class="row mb-3">
-                <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-3 mb-3">
                     <input type="text" name="nama" class="form-control" placeholder="Nama Buku" value="<?= isset($_GET['nama']) ? $_GET['nama'] : '' ?>">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mb-3">
                     <input type="text" name="tahun_terbit" class="form-control" placeholder="Tahun Terbit" value="<?= isset($_GET['tahun_terbit']) ? $_GET['tahun_terbit'] : '' ?>">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mb-3">
                     <input type="text" name="penulis" class="form-control" placeholder="Penulis" value="<?= isset($_GET['penulis']) ? $_GET['penulis'] : '' ?>">
                 </div>
-                <div class="col-md-3">
-                    <button type="submit" class="btn btn-primary">Cari</button>
+                <div class="col-md-3 mb-3">
+                    <button type="submit" class="btn btn-primary w-100">Cari</button>
                 </div>
             </div>
         </form>
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-md-12">
         <!-- tabel list buku -->
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <tr>
@@ -39,9 +45,7 @@
                 <th>ISBN</th>
                 <th>Jumlah</th>
                 <th>Sinopsis</th>
-                <?php
-                if ($_SESSION['user']['level'] == 'admin') :
-                ?>
+                <?php if ($_SESSION['user']['level'] == 'admin') : ?>
                 <th>Aksi</th>
                 <?php endif; ?>
             </tr>
@@ -77,9 +81,7 @@
                 <td><?= $data['isbn']; ?></td>
                 <td><?= $data['jumlah']; ?></td>
                 <td><?= $data['sinopsis']; ?></td>
-                <?php
-                if ($_SESSION['user']['level'] != 'peminjam') :
-                ?>
+                <?php if ($_SESSION['user']['level'] != 'peminjam') : ?>
                 <td>
                     <a href="?page=buku_ubah&&id=<?= $data['id_buku'] ?>" class="btn btn-info">Ubah</a>
                     <a onclick="return confirm('Apakah anda yakin menghapus data ini')" href="?page=buku_hapus&&id=<?= $data['id_buku'] ?>" class="btn btn-danger">Hapus</a>

@@ -45,9 +45,7 @@
                 <th>ISBN</th>
                 <th>Jumlah</th>
                 <th>Sinopsis</th>
-                <?php if ($_SESSION['user']['level'] == 'admin') : ?>
                 <th>Aksi</th>
-                <?php endif; ?>
             </tr>
             <?php
                 $i = 1;
@@ -81,15 +79,15 @@
                 <td><?= $data['isbn']; ?></td>
                 <td><?= $data['jumlah']; ?></td>
                 <td><?= $data['sinopsis']; ?></td>
-                <?php if ($_SESSION['user']['level'] != 'peminjam') : ?>
                 <td>
                     <div class="d-flex flex-column flex-md-row">
                         <button class="btn btn-primary mb-2 mb-md-0 me-md-2" data-bs-toggle="modal" data-bs-target="#detailModal" data-id="<?= $data['id_buku'] ?>">Detail</button>
+                        <?php if ($_SESSION['user']['level'] != 'peminjam') : ?>
                         <a href="?page=buku_ubah&&id=<?= $data['id_buku'] ?>" class="btn btn-info mb-2 mb-md-0 me-md-2">Ubah</a>
                         <a onclick="return confirm('Apakah anda yakin menghapus data ini')" href="?page=buku_hapus&&id=<?= $data['id_buku'] ?>" class="btn btn-danger">Hapus</a>
+                        <?php endif; ?>
                     </div>
                 </td>
-                <?php endif; ?>
             </tr>
             <?php endwhile; ?>
         </table>

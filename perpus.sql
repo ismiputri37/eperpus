@@ -44,6 +44,9 @@ CREATE TABLE `buku` (
 -- Dumping data for table `buku`
 --
 
+INSERT INTO `buku` (`id_buku`, `id_kategori`, `judul`, `penulis`, `penerbit`, `tahun_terbit`, `deskripsi`) VALUES
+(1, 2, 'Bumi Manusia', 'Pramoedya', 'Hasta Mitra', '2020', 'lorem ipsum'),
+(2, 2, 'Laut Bercerita', 'Maryam Karpov', 'Gramedia', '2022', 'Laut Bercerita');
 INSERT INTO `buku` (`id_buku`, `id_kategori`, `judul`, `gambar`, `penulis`, `penerbit`, `tahun_terbit`, `deskripsi`, `kuantitas`) VALUES
 (1, 7, 'Bumi Manusia', NULL, 'Pramoedya', 'Hasta Mitra', '2020', 'lorem ipsum', 2),
 (3, 14, 'Laut Bercerita', NULL, 'Maryam Karpov', 'Gramedia', '2022', 'Laut Bercerita', 5),
@@ -65,6 +68,9 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`id_kategori`, `kategori`) VALUES
+(1, 'romance 3'),
+(2, 'Roman'),
+(3, 'History');
 (4, 'history'),
 (7, 'horor'),
 (14, 'macan'),
@@ -83,6 +89,7 @@ CREATE TABLE `peminjaman` (
   `id_user` int(11) DEFAULT NULL,
   `id_buku` int(11) DEFAULT NULL,
   `tanggal_peminjaman` varchar(255) DEFAULT NULL,
+  `tanggal_jatuh_tempo` varchar(255) DEFAULT NULL,
   `tanggal_pengembalian` varchar(255) DEFAULT NULL,
   `status_peminjaman` enum('dipinjam','dikembalikan') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -91,6 +98,10 @@ CREATE TABLE `peminjaman` (
 -- Dumping data for table `peminjaman`
 --
 
+INSERT INTO `peminjaman` (`id_peminjaman`, `id_user`, `id_buku`, `tanggal_peminjaman`, `tanggal_jatuh_tempo`, `tanggal_pengembalian`, `status_peminjaman`) VALUES
+(1, 4, 1, '21-11-2024', NULL, NULL, 'dikembalikan'),
+(2, 4, 1, '21-11-2024', NULL, NULL, 'dikembalikan'),
+(3, 3, 1, '2025-01-27', '2025-01-29', NULL, 'dipinjam');
 INSERT INTO `peminjaman` (`id_peminjaman`, `id_user`, `id_buku`, `tanggal_peminjaman`, `tanggal_pengembalian`, `status_peminjaman`) VALUES
 (11, 8, 1, '2025-01-27', '2025-01-29', 'dipinjam'),
 (16, 3, 3, '2025-01-29', '2025-02-05', 'dikembalikan'),
@@ -115,6 +126,8 @@ CREATE TABLE `ulasan` (
 --
 
 INSERT INTO `ulasan` (`id_ulasan`, `id_user`, `id_buku`, `ulasan`, `rating`) VALUES
+(1, 4, 2, 'kamu jangan move on! buku cerita yang snagat bagus dan membuat gagal move on', 7),
+(2, 4, 1, 'sknsen ratign 4', 4);
 (4, 9, 1, 'vhvjh hvjhg dzfbsdfb', 9),
 (5, 3, 3, 'kamu jangan move on! buku cerita yang snagat bagus dan membuat gagal move on', 7),
 (7, 8, 1, 'badasdsgbjsa', 10);
@@ -141,6 +154,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nama`, `username`, `password`, `email`, `alamat`, `no_telepon`, `level`) VALUES
+(1, 'Administrator', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@gmai.com', 'ende', '0812387868', 'admin'),
+(2, 'Petugas1', 'petugas', 'afb91ef692fd08c445e8cb1bab2ccf9c', 'petugas@gmail.com', 'Anaraja', '082863278', 'petugas'),
+(3, 'Peminjam1', 'peminjam', '55f3894bc5fc71fead8412d321c2952c', 'peminjam@gmail.com', 'Nangapanda', '0986318351', 'peminjam'),
+(4, 'mtsn1ende', 'peminjam2', '53c00c96141e24cfff921a36ce962dd6', 'peminjam2@gmail.com', 'Jln. Ende-Bajawa Km. 21, Anaraja, Nangapanda, Ende', '902717232', 'peminjam'),
+(5, 'admin2', 'admin2', 'c84258e9c39059a89ab77d846ddab909', 'admin2@gmail.com', 'Jln. Ende-Bajawa Km. 21, Anaraja, Nangapanda, Ende', '7239186', 'admin');
 (3, 'Administrator', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@gmai.com', 'ende', '0812387868', 'admin'),
 (4, 'Petugas1', 'petugas', 'afb91ef692fd08c445e8cb1bab2ccf9c', 'petugas@gmail.com', 'Anaraja', '082863278', 'petugas'),
 (5, 'Peminjam1', 'peminjam', '55f3894bc5fc71fead8412d321c2952c', 'peminjam@gmail.com', 'Nangapanda', '0986318351', 'peminjam'),
@@ -160,7 +178,7 @@ INSERT INTO `user` (`id_user`, `nama`, `username`, `password`, `email`, `alamat`
 --
 ALTER TABLE `buku`
   ADD PRIMARY KEY (`id_buku`),
-  ADD KEY `Id_kategori` (`id_kategori`);
+  ADD KEY `id_kategori` (`id_kategori`);
 
 --
 -- Indexes for table `kategori`
@@ -232,7 +250,7 @@ ALTER TABLE `user`
 -- Constraints for table `buku`
 --
 ALTER TABLE `buku`
-  ADD CONSTRAINT `buku_ibfk_1` FOREIGN KEY (`Id_kategori`) REFERENCES `kategori` (`id_kategori`);
+  ADD CONSTRAINT `buku_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`);
 
 --
 -- Constraints for table `peminjaman`
@@ -246,8 +264,7 @@ ALTER TABLE `peminjaman`
 --
 ALTER TABLE `ulasan`
   ADD CONSTRAINT `ulasan_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
-  ADD CONSTRAINT `ulasan_ibfk_2` FOREIGN KEY (`id_buku`) REFERENCES `buku` (`id_buku`),
-  ADD CONSTRAINT `ulasan_ibfk_3` FOREIGN KEY (`id_buku`) REFERENCES `buku` (`id_buku`);
+  ADD CONSTRAINT `ulasan_ibfk_2` FOREIGN KEY (`id_buku`) REFERENCES `buku` (`id_buku`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

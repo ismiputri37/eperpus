@@ -1,4 +1,4 @@
-<?php 
+<?php
     include "koneksi.php";
     // jika session user kosong, redirect ke login
     if (!isset($_SESSION['user'])) {
@@ -56,27 +56,21 @@
                             </a>
                             <div class="sb-sidenav-menu-heading">NAVIGASI</div>
                             <!-- pembagian hak akses -->
-                            <?php 
-                                if ($_SESSION['user']['level'] !='peminjam') {
+                            <?php
+                                if ($_SESSION['user']['level'] !== 'peminjam') {
                             ?>
                                 <a class="nav-link" href="?page=kategori">
                                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                     Kategori
-                                </a> 
-                                
-                            <!-- membagi hak akses peminjam -->                           
-                            <?php 
+                                </a>
+                                <a class="nav-link" href="?page=buku">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                                    Buku
+                                </a>
+                            <!-- membagi hak akses peminjam -->
+                            <?php
                                 }
-                            ?>
-                            <a class="nav-link" href="?page=buku">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
-                                Buku
-                            </a> 
-                            <a class="nav-link" href="?page=ulasan">
-                                <div class="sb-nav-link-icon"><i class="fas fa-comment"></i></div>
-                                Ulasan
-                            </a> 
-                            
+                            ?>                                
                             <a class="nav-link" href="?page=peminjaman">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                                 Peminjaman
@@ -85,7 +79,7 @@
                             <a class="nav-link" href="logout.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-power-off"></i></div>
                                 Logout
-                            </a> 
+                            </a>
                             <!-- Login sebagai  -->
                         </div>
                     </div>
@@ -99,21 +93,21 @@
                 <main>
                     <div class="container-fluid px-4">
                         <!-- cek apakah page ada, paging dashboard-->
-                        <?php 
+                        <?php
                             $page = isset($_GET['page']) ? $_GET['page'] : 'home';
                             if (file_exists($page . '.php')) {
                                 include $page . '.php';
                             } else {
                                 include '404.php';
-                            }                            
-                        ?>                           
+                            }
+                        ?>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                           
+
                         </div>
                     </div>
                 </footer>

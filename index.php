@@ -78,12 +78,6 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-comment"></i></div>
                                 Ulasan
                             </a>
-
-                            <a class="nav-link" href="?page=peminjaman">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
-                                Peminjaman
-                            </a>
-
                             <a class="nav-link" href="logout.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-power-off"></i></div>
                                 Logout

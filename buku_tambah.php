@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <!-- menyimpan data ke database -->
                 <form action="" method="POST" enctype="multipart/form-data">
-                    <?php 
+                    <?php
                         if(isset($_POST['submit'])) {
                             $id_kategori = $_POST['id_kategori'];
                             $judul = ucfirst($_POST['judul']);
@@ -15,31 +15,31 @@
                             $isbn = $_POST['isbn'];
                             $jumlah = $_POST['jumlah'];
                             $sinopsis = $_POST['sinopsis'];
-                        
+
                             // Proses Upload Gambar
                             $gambar = $_FILES['gambar'];
                             $upload_dir = "upload/"; // Direktori penyimpanan gambar
                             $ext = pathinfo($gambar['name'], PATHINFO_EXTENSION);
                             $filename = time() . "." . $ext; // Rename agar unik
                             $file_path = $upload_dir . $filename;
-                        
+
                             $allowed_ext = ['jpg', 'jpeg', 'png', 'gif'];
                             if (!in_array(strtolower($ext), $allowed_ext)) {
                                 die("Format gambar tidak didukung! Hanya JPG, JPEG, PNG, GIF.");
                             }
-                        
+
                             if (move_uploaded_file($gambar['tmp_name'], $file_path)) {
                                 // Cek apakah judul sudah ada
                                 $cek = mysqli_query($koneksi, "SELECT * FROM buku WHERE judul='$judul'");
                                 $check = mysqli_num_rows($cek);
-                        
+
                                 if ($check > 0) {
                                     echo "Data pernah dimasukkan";
                                 } else {
                                     // Simpan ke database
-                                    $query = mysqli_query($koneksi, "INSERT INTO buku(id_kategori, judul, penulis, penerbit, tahun_terbit, isbn, jumlah, sinopsis, gambar) 
+                                    $query = mysqli_query($koneksi, "INSERT INTO buku(id_kategori, judul, penulis, penerbit, tahun_terbit, isbn, jumlah, sinopsis, gambar)
                                     VALUES('$id_kategori', '$judul', '$penulis', '$penerbit', '$tahun_terbit', '$isbn', '$jumlah', '$sinopsis', '$filename')");
-                        
+
                                     if($query) {
                                         echo '<script>alert("Tambah data berhasil"); window.location.href ="?page=buku"; </script>';
 
@@ -52,7 +52,7 @@
                             }
                         }
                     ?>
-                    
+
                     <div class="row">
                         <div class="row mb-3">
                             <div class="col-md-2">Upload Gambar</div>
@@ -61,16 +61,16 @@
                         <div class="row mb-3">
                             <div class="col-md-2">Kategori</div>
                             <div class="col-md-8">
-                                <!-- <input type="text" class="form-control" name="kategori"> -->
-                                 <select name="id_kategori" class="form-control">
-                                    <?php 
+                                <select name="id_kategori" class="form-select" aria-label="Pilih Kategori">
+                                    <option selected disabled>Pilih Kategori</option>
+                                    <?php
                                         $kat = mysqli_query($koneksi, "SELECT * FROM kategori");
                                         while ($kategori = mysqli_fetch_array($kat)) :
                                     ?>
                                     <option value="<?= $kategori['id_kategori']; ?>">
                                         <?= $kategori['kategori']; ?>
                                     </option>
-                                    <?php endwhile; ?>    
+                                    <?php endwhile; ?>
                                  </select>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                         <div class="row mb-3">
                             <div class="col-md-2">Tahun Terbit</div>
                             <div class="col-md-8"><input type="number" class="form-control" name="tahun_terbit" min="1900" max="2025" required></div>
-                            
+
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-2">ISBN</div>
@@ -101,13 +101,13 @@
                             <div class="col-md-8"><input type="number" class="form-control" name="jumlah" required></div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-2">sinopsis</div>
+                            <div class="col-md-2">Sinopsis</div>
                             <div class="col-md-8">
                                 <textarea name="sinopsis" rows="5" class="form-control" required></textarea>
                             </div>
                         </div>
                         <!-- button submit -->
-                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">                                            
+                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                             <div class="col-md-4">
                                 <div class="col-md-8">
                                     <button type="submit" class="btn btn-primary" name="submit" value="submit">Simpan</button>

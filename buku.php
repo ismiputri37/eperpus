@@ -36,9 +36,9 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <tr>
                 <th>No.</th>
+                <th>Judul</th>
                 <th>Nama Kategori</th>
                 <th>Gambar</th>
-                <th>Judul</th>
                 <th>Penulis</th>
                 <th>Penerbit</th>
                 <th>Tahun Terbit</th>
@@ -72,9 +72,9 @@
             ?>
             <tr>
                 <td><?= $i++; ?></td>
+                <td><?= $data['judul']; ?></td>
                 <td><?= $data['kategori']; ?></td>
                 <td><img src="upload/<?= $data['gambar']; ?>" width="80px" alt=""></td>
-                <td><?= $data['judul']; ?></td>
                 <td><?= $data['penulis']; ?></td>
                 <td><?= $data['penerbit']; ?></td>
                 <td><?= $data['tahun_terbit']; ?></td>
@@ -83,8 +83,11 @@
                 <td><?= $data['sinopsis']; ?></td>
                 <?php if ($_SESSION['user']['level'] != 'peminjam') : ?>
                 <td>
-                    <a href="?page=buku_ubah&&id=<?= $data['id_buku'] ?>" class="btn btn-info">Ubah</a>
-                    <a onclick="return confirm('Apakah anda yakin menghapus data ini')" href="?page=buku_hapus&&id=<?= $data['id_buku'] ?>" class="btn btn-danger">Hapus</a>
+                    <div class="d-flex flex-column flex-md-row">
+                        <button class="btn btn-primary mb-2 mb-md-0 me-md-2" data-bs-toggle="modal" data-bs-target="#detailModal" data-id="<?= $data['id_buku'] ?>">Detail</button>
+                        <a href="?page=buku_ubah&&id=<?= $data['id_buku'] ?>" class="btn btn-info mb-2 mb-md-0 me-md-2">Ubah</a>
+                        <a onclick="return confirm('Apakah anda yakin menghapus data ini')" href="?page=buku_hapus&&id=<?= $data['id_buku'] ?>" class="btn btn-danger">Hapus</a>
+                    </div>
                 </td>
                 <?php endif; ?>
             </tr>
@@ -92,3 +95,39 @@
         </table>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Detail Buku</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Book details will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var detailModal = document.getElementById('detailModal');
+    detailModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var idBuku = button.getAttribute('data-id');
+
+        var modalBody = detailModal.querySelector('.modal-body');
+        modalBody.innerHTML = 'Loading...';
+
+        fetch('buku_detail.php?id=' + idBuku)
+            .then(response => response.text())
+            .then(data => {
+                modalBody.innerHTML = data;
+            });
+    });
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

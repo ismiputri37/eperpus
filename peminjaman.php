@@ -1,7 +1,12 @@
 <h1 class="mt-4">Peminjaman Buku</h1>
+<div class="row mb-3">
+    <div class="col-md-12">
+        <a href="?page=peminjaman_tambah" class="btn btn-primary mb-3"><i class="fa fa-plus"></i> Tambah Peminjaman</a>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-12">
-        <a href="?page=peminjaman_tambah" class="btn btn-primary"><i class="fa fa-plus"></i>Tambah Peminjaman</a>
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <tr>
                 <th>No.</th>
@@ -47,7 +52,7 @@
                     ?>
                 </td>
                 <td>
-                <a onclick="return confirm('Apakah denda sudah lunas?')" href="?page=pengembalian&id_peminjaman=<?= $data['id_peminjaman']?>" class="btn btn-info">Pengembalian</a>
+                    <a onclick="return confirm('Apakah denda sudah lunas?')" href="?page=pengembalian&id_peminjaman=<?= $data['id_peminjaman']?>" class="btn btn-info">Pengembalian</a>
                     <a onclick="return confirm('Apakah anda yakin menghapus data ini')" href="?page=peminjaman_hapus&&id=<?= $data['id_peminjaman']?>" class="btn btn-danger">Hapus</a>
                 </td>
             </tr>
